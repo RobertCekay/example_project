@@ -1,16 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super Blog</title>
-</head>
-<body>
-  <h1>Super Blog</h1>
-  {% for post in posts %}
-    <h2>{{post.title}}</h2>
-    <p>{{post.content}}</p>
-    <small>{{post.created_at}}</small>
-  {% endfor %}
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-5 fw-bold">Latest Posts</h1>
+      <p class="text-muted">The freshest content from Super Blog.</p>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in posts %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h4">{{ post.title }}</h2>
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+          <div class="card-footer bg-transparent">
+            <small class="text-muted">Posted {{ post.created_at }}</small>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info" role="alert">
+          No posts yet. Check back soon!
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}
